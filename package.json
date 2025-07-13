@@ -1,0 +1,24 @@
+{
+  "name": "maqx-reward",
+  "version": "1.0.0",
+  "scripts": {
+    "compile": "hardhat compile",
+    "set-winners": "npx hardhat run scripts/setWeeklyWinners.ts --network sepolia"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "dotenv": "^16.4.5",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.17.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.3.0"
+  }
+}
