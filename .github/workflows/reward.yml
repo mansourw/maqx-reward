@@ -1,0 +1,39 @@
+name: Weekly MAQX Reward
+
+on:
+  schedule:
+    - cron: '0 8 * * 0'  # Every Sunday at 08:00 UTC
+  workflow_dispatch:
+
+jobs:
+  run-reward:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run setWeeklyWinners
+        run: npx ts-node cron/setWeeklyWinners.ts
+        env:
+          REWARD_TOKEN_ADDRESS: ${{ secrets.REWARD_TOKEN_ADDRESS }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          RPC_URL: ${{ secrets.RPC_URL }}
+
+      - name: Wait 2 minutes
+        run: sleep 120
+
+      - name: Run advanceWeek
+        run: npx ts-node cron/advanceWeek.ts
+        env:
+          REWARD_TOKEN_ADDRESS: ${{ secrets.REWARD_TOKEN_ADDRESS }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          RPC_URL: ${{ secrets.RPC_URL }}
