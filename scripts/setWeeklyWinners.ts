@@ -11,19 +11,20 @@
  * 7. Logs the success to the terminal.
  */
 
-import { ethers } from "hardhat";
+import hre from "hardhat";
+import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 dotenv.config();
 
 export async function setWeeklyWinners() {
-  const [signer] = await ethers.getSigners();
+  const [signer] = await hre.ethers.getSigners();
 
   const rewardClaimAddress = process.env.REWARD_CLAIM_ADDRESS!;
   if (!rewardClaimAddress) {
     throw new Error("Please set REWARD_CLAIM_ADDRESS in your .env file");
   }
 
-  const RewardClaim = await ethers.getContractFactory("RewardClaim");
+  const RewardClaim = await hre.ethers.getContractFactory("RewardClaim");
   const reward = RewardClaim.attach(rewardClaimAddress).connect(signer);
 
   console.log("Calling setWeeklyWinners...");
