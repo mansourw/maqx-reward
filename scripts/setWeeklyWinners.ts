@@ -11,7 +11,8 @@
  * 7. Logs the success to the terminal.
  */
 
-import { ethers } from "hardhat";
+import hre from "hardhat";
+const { ethers } = hre;
 import * as dotenv from "dotenv";
 dotenv.config();
 
